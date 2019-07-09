@@ -37,13 +37,13 @@ Compute-VM
 - Quota: Standard Dv2 Family vCPUs
 - Provider: Microsoft.Compute
 - SKU family: Dv2 Series
-- Required Limit: 4
+- Required Limit: 6
 
 Compute-VM
 - Quota: Total Regional vCPUs
 - Provider: Microsoft.Compute
 - SKU family: Dv2 Series
-- Required Limit: 4
+- Required Limit: 6
 
 # Prerequisites
 
