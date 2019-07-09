@@ -101,7 +101,7 @@ At a high level, here are the setup tasks you will need to perform to prepare yo
 
 ## Task 3: Update your Notebook Environment 
 
-1. From the Jupyter Notebooks interface, navigate to the `quick-starts->azure-machine-learning-quickstarts->aml-python-sdk->starter-artifacts->nbvm-notebooks` folder where you will find all your quickstart files.
+1. From the Jupyter Notebooks interface, navigate to the `quick-starts->machine-learning-quickstarts->quickstart-2.0->notebooks` folder where you will find all your quickstart files.
 
 2. Open notebook: **aml-setup.ipynb**
 
