@@ -106,3 +106,11 @@ At a high level, here are the setup tasks you will need to perform to prepare yo
 2. Open notebook: **aml-setup.ipynb**
 
 3. Run each cell in the notebook to install the required libraries.
+
+# Exercise 3: Complete the Quickstart
+
+1. From the Jupyter Notebooks interface, navigate to the `quick-starts->machine-learning-quickstarts->quickstart-2.0->notebooks` folder where you will find all your quickstart files.
+
+2. Open notebook: **automl-with-AML.ipynb**
+
+3. Follow the instructions within the notebook to complete the quickstart.
