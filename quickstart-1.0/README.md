@@ -168,7 +168,7 @@ Compute-VM
 
 3. Provide the `Deployment name`, and `Deployment description`, and then select **Deploy** as shown:
 
-   - Deployment name: `nyc-taxi-predictor`
+   - Deployment name: `nyc-taxi-predict`
    - Deployment description: `Predict NYC Taxi Fares!`
 
    <img src="./images/0141_DeployBestModel.png" width="70%" height="70%" title="Deploy Best Model">
