@@ -165,70 +165,19 @@ Compute-VM
 2. Select **Deploy Best Model** as shown
 
    <img src="./images/014_DeployBestModel.png" width="70%" height="70%" title="Deploy Best Model">
-  
-Note that deployment process consists of four steps: (1) *Register Best Model*, (2) Download *Scoring and Environment Script files*, (3) Create *Deployment Image* using the downloaded script files, and (4) Deploy *Scoring Web Service* using the created image.
 
-## Step 1: Register Best Model
+3. Provide the `Deployment name`, and `Deployment description`, and then select **Deploy** as shown:
 
-1. Select **Register Model** link.
+   - Deployment name: `nyc-taxi-predictor`
+   - Deployment description: `Predict NYC Taxi Fares!`
 
-   <img src="./images/015_RegisterModel.png" width="70%" height="70%" title="Register Best Model">
+   <img src="./images/0141_DeployBestModel.png" width="70%" height="70%" title="Deploy Best Model">
 
-## Step 2: Download the Script Files
+4. The model deployment, will register the model, create the deployment image, and deploy it as a scoring webservice in an Azure Container Instance (ACI). The entire deployment process can take up to 20 minutes. 
 
-1. Select **Download Scoring Script** link. This will download `scoring.py` file to your local disk.
-2. Select **Download Environment Script** link. This will download `condaEnv.yml` file to your local disk.
+5. To view the deployed model, from the Azure Machine Learning workspace select **Deployments**.
 
-   <img src="./images/016_DownloadScripts.png" width="70%" height="70%" title="Download the Script Files">
-
-## Step 3: Create the Deployment Image
-
-1. Navigate to the `Models` section in your Azure Portal Workspace
-2. Select the `Registered Model`
-3. Select **Create Image**
-
-   <img src="./images/017_CreateImage_1.png" width="70%" height="70%" title="Click on Create Image">
-
-4. On the `Create an Image` page provide the information as shown below:
-
-   a. Name: `nyc-taxi-automl`
-   
-   b. Description: `Predicting NYC Taxi Fares Image.`
-   
-   c. Runtime: `Python`
-   
-   d. Scoring File: `scoring.py` (upload the scoring script file you saved in Step #2)
-   
-   e. Conda File: `condaEnv.yml` (upload the environment script file you saved in Step #2)
-
-5. Select **Create** button.
-6. Creating an image can take upto 5-10 minutes. Wait for the image to be created before proceeding.
-
-   <img src="./images/017_CreateImage_2.png" width="70%" height="70%" title="Create an Image Information Page">
-
-## Step 4: Deploy the Scoring Web Service
-
-1. Navigate to the `Images` section in your Azure Portal Workspace
-2. Select the image created above: `nyc-taxi-automl`
-3. Confirm that the image creation succeeded
-4. Select **Create Deployment**
-
-   <img src="./images/018_CreateDeployment_1.png" width="70%" height="70%" title="Click on Create Deployment">
-
-5. On the `Create Deployment` page provide the information as shown below and then select **Create** button:
-
-   a. Name: `nyc-taxi-predictor`
-   
-   b. Description: `Predict NYC Taxi Fares!`
-   
-   c. Compute Type: `ACI` (We will deploy the scoring web service on an Azure Container Instance (ACI))
-
-      <img src="./images/018_CreateDeployment_2.png" width="70%" height="70%" title="Create Deployment Information Page">
-
-6. Creating a scoring web service can take upto 5 minutes.
-7. Navigate to the `Deployments` section in your Azure Portal Workspace. Wait for the service to be ready before proceeding.
-
-   <img src="./images/018_CreateDeployment_3.png" width="70%" height="70%" title="Create Deployment Information Page">
+   <img src="./images/0142_DeployBestModel.png" width="70%" height="70%" title="Deployed Models">
 
 # Exercise 8: Challenge Experiment
 
