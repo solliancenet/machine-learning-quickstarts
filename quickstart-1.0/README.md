@@ -17,7 +17,7 @@ You can create and run automated machine learning experiments in code using the 
 
 # Quickstart Overview
 
-In this quickstart, you learn how to create, run, and explore automated machine learning experiments in the [Azure portal](https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-create-portal-experiments) without a single line of code. Next, from within the Azure portal, you will register the best trained model, create the deployment image, and deploy a scoring web service on Azure Container Instance to make predictions using the registered model. 
+In this quickstart, you learn how to create, run, and explore automated machine learning experiments in the [Azure portal](https://docs.microsoft.com/en-us/azure/machine-learning/service/how-to-create-portal-experiments) without a single line of code. Next, from within the Azure portal, you will deploy a scoring web service on Azure Container Instance to make predictions using the registered model.
 
 As part of this quickstart, we will be building a regression model to predict Taxi Fares in New York City. We will use a preprocessed labeled training data with features such as number of passengers, trip distance, datetime, holiday information and weather information.
 
@@ -29,9 +29,9 @@ The labs have the following requirements:
 - Azure subscription. You will need a valid and active Azure account to complete this Azure lab. If you do not have one, you can sign up for a [free trial](https://azure.microsoft.com/en-us/free/).
 
 ## Azure Quotas Required
-The quickstarts depend on the capability to utilize a certain quantity of Azure resources, for which your Azure subscription will need to have sufficient quota available. 
+The quickstart depend on the capability to utilize a certain quantity of Azure resources, for which your Azure subscription will need to have sufficient quota available.
 
-The following are the specific quotas required, if your subscription does not meet the quota requirements in the region in which you will perform the quickstarts, you will need to request a quota increase thru Azure support:
+The following are the specific quotas required, if your subscription does not meet the quota requirements in the region in which you will perform the quickstart, you will need to request a quota increase thru Azure support:
 
 Compute-VM
 - Quota: Standard Dv2 Family vCPUs
@@ -49,142 +49,196 @@ Compute-VM
 
 - If an environment is provided to you. Use the workspace named: `quick-starts-ws-XXXXX`, where `XXXXX` is your unique identifier.
 
-- If you are using your own Azure subscription. Create an Azure Machine Learning service workspace named: `quick-starts-ws`. See [Create an Azure Machine Learning Service Workspace](https://docs.microsoft.com/en-us/azure/machine-learning/service/setup-create-workspace) for details on how to create the workspace.
+- If you are using your own Azure subscription. Create an Azure Machine Learning service workspace, **enterprise edition**, named: `quick-starts-ws`. See [Create an Azure Machine Learning Service Workspace](https://docs.microsoft.com/en-us/azure/machine-learning/service/setup-create-workspace) for details on how to create the workspace.
 
-- Download the training data file [nyc-taxi-sample-data.csv](https://quickstartsws9073123377.blob.core.windows.net/azureml-blobstore-0d1c4218-a5f9-418b-bf55-902b65277b85/quickstarts/nyc-taxi-data/nyc-taxi-sample-data.csv) on your local disk.
+- Download the training data file [nyc-taxi-sample-data.csv](https://quickstartsws9073123377.blob.core.windows.net/azureml-blobstore-0d1c4218-a5f9-418b-bf55-902b65277b85/quickstarts/nyc-taxi-data/nyc-taxi-sample-data.csv) on your local machine.
 
 # Exercise 2: Setup New Automated Machine Learning Experiment
 
 ## Task 1: Create New Automated Machine Learning Experiment
 
 1. In Azure Portal, open the machine learning workspace: `quick-starts-ws-XXXXX` or `quick-starts-ws`
-2. Select `Automated machine learning` in the left navigation bar
-3. Select **Create Experiment** from the content section
+
+2. Select **Launch the new Azure Machine Learning studio**
+
+    ![Select Launch the new Azure Machine Learning studio.](images/01.png 'Launch the new Azure Machine Learning studio')
+
+3. From the studio, select **Create new, Automated ML run**
+
+    ![Create new Automated ML run from Azure Machine Learning studio.](images/02.png 'New Automated ML run')
+
 4. This will open a `Create a new automated machine learning experiment` page
 
-   <img src="./images/02_CreateExperiment.png" width="70%" height="70%" title="Create new experiment">
+## Task 2: Upload and Review Training Data
 
-5. Provide an experiment name: `auto-ml-exp`
-6. Select **Create a new compute**
+1. From the `Select dataset` step, select **Create dataset, From local files**
 
-   <img src="./images/03_NewExperiment_1.png" width="70%" height="70%"  title="Provide experiment name and click on compute">
+    ![Open select dataset from local files.](images/03.png 'Select dataset')
 
-## Task 2: Create New Compute
+2. Select **Browse** to locate the file `nyc-taxi-sample-data.csv` on your local machine, and then select **Next**
 
-1. Provide compute name: `auto-ml-compute`
-2. Select your VM size: `Standard_DS3_v2`
-3. Provide `Additional Settings`
+    ![Upload nyc-taxi-sample-data.csv from your local machine.](images/04.png 'Upload dataset')
 
-   a. Minimum number of nodes: 1
-   
-   b. Maximum number of nodes: 1
-   
-4. Select **Create**
-5. Wait for compute to be ready. This may take 2-3 minutes.
-6. Select **Next**
+3. Preview dataset. Scroll to right to observe the target column: `totalAmount`. After you are done reviewing the data, select **Next**
 
-   <img src="./images/04_CreateNewCompute.png" width="70%" height="70%" title="Create new compute">
+    ![Scroll right to review dataset.](images/05.png 'Review dataset')
 
-# Exercise 3: Upload and Review Training Data
+4. Select columns from the dataset to include as part of your training data. Leave the default selections and select **Next**
 
-## Task 1: Upload Training Data
+    ![Select columns from the dataset to include as part of your training data.](images/06.png 'Select columns')
 
-- Select **Upload**
-- Upload `nyc-taxi-sample-data.csv` from your local disk
+5. Confirm the dataset details and select **Create**
 
-  <img src="./images/05_UploadDataFile.png" width="70%" height="70%" title="Upload training data">
+    ![Confirm the details of the dataset you uploaded and then select Create.](images/07.png 'Confirm and create the dataset')
 
-## Task 2: Review Training Data
+6. Select the dataset you created and then select **Next**
 
-- Select **nyc-taxi-sample-data.csv** from the list
+    ![Select the dataset you created and then select.](images/08.png 'Select dataset')
 
-  <img src="./images/06_ReviewDataFile.png" width="70%" height="70%" title="Select training data">
+## Task 3: Configure Run and Create Training Compute
 
-- Review your training data. Scroll to right to observe the target column: `totalAmount`
+1. Provide an experiment name: `auto-ml-exp`
 
-  <img src="./images/061_ReviewDataFile.png" width="70%" height="70%" title="Review training data">
+2. Select target column: `totalAmount`
 
-# Exercise 4: Setup Experiment Settings
+3. Select **Create new compute**. This will open the `Create new compute` dialog pane on the right hand side.
 
-## Task 1: Basic Settings
+    ![Configure the run by providing the experiment name, selecting the target column and open the create new compute dialog.](images/09.png 'Configure Run')
 
-1. Select Prediction Task: **Regression**
-2. Select Target column: **totalAmount**
-3. Open **Advanced Settings**
+4. In the `Create new compute` dialog provide the following information and then select **Create**
 
-   <img src="./images/07_SetupExp_1.png" width="70%" height="70%" title="Setup experiment basic settings">
+    - Compute name: `auto-ml-compute`
+    - Select Virtual Machine size: `STANDARD_DS3_V2 --- 4 vCPUs, 14 GB memory, 28 GB storage`
+    - Minimum number of nodes: 1
+    - Maximum number of nodes: 1
 
-## Task 2: Advanced Settings
+    ![The figure shows the values provided in the create new compute dialog.](images/10.png 'Create new compute')
 
-1. Select Primary metric **spearman_correlation**
-2. Select Max number of iterations: **3**
-3. Select Number of Cross Validations: **5**
-4. Select Max concurrent iterations: **1**
+5. The compute will take couple of minutes to create. Wait for the compute to be ready.
 
-   <img src="./images/08_SetupExp_2.png" width="70%" height="70%" title="Setup experiment advanced settings">
+6. In the `Configure run` step, select the compute target: **auto-ml-compute** and then select **Next**
 
-# Exercise 5: Start and Monitor Experiment
+    ![Complete the run configuration by selecting the compute target, auto-ml-compute, and then selecting next.](images/11.png 'Select compute target')
+
+## Task 4: Setup Task type and Settings
+
+1. Select task type: **Regression**
+
+    ![Select task type, regression.](images/12.png 'Select task type')
+
+2. Open `Additional configurations` dialog by selecting **View additional configuration settings**
+
+    ![Open the additional configurations dialog by selecting the view additional configuration settings link.](images/13.png 'Open Additional configurations dialog')
+
+3. Select primary metric: **Spearman correlation**, and then select the **Exit criteria** section.
+
+    ![Select primary metric as Spearman correlation and then expand the exit criteria section.](images/14.png 'Additional configurations dialog')
+
+    *Note that the `Spearman correlation` measures the monotonic relationships between the predicted value and actual value. In this case, the model with spearman_correlation score closest to 1 is the best model.*
+
+4. In the `Exit criteria` section provide the following information and then select **Save**
+
+    - Training job time (hours): `1`
+    - Metric score threshold: `0.933`
+
+    ![Provide exit criteria and then select save.](images/15.png 'Exit criteria')
+
+    *Note that we are setting a metric score threshold to limit the training time. In practice, for initial experiments, you will typically only set the training job time to allow AutoML to discover the best algorithm to use for your specific data.*
+
+# Exercise 3: Start and Monitor Experiment
 
 ## Task 1: Start Experiment
 
-1. Scroll down and select **Start** to run the experiment
+1. Select **Finish** to start running the experiment
 
-   <img src="./images/09_StartExp.png" width="70%" height="70%" title="Start Experiment">
+    ![Select Finish to start running the experiment.](images/16.png 'Start Experiment')
 
 ## Task 2: Monitor Experiment
 
 1. The experiment will run for about *5-10 min*
-2. In the **Run Details** screen, observe the performance of the various models for the primary metric: **spearman_correlation**
 
-   <img src="./images/09_ReviewRunDetails_1.png" width="70%" height="70%" title="Review run details - graph view">
+2. In the **Details** tab, observe the **run status** of the job. 
+
+    ![Run Details tab showing run status.](images/17.png 'Run Details')
   
-3. Scroll down to see a table view of different iterations
-4. Wait for the experiment to complete
+3. Select the **Models** tab, and observe the various algorithms the AutoML is evaluating. You can also observe the corresponding Spearman correlation scores for each algorithm.
 
-# Exercise 6: Review Best Model's Performance
+    ![Models tab showing model performance metric.](images/18.png 'Models')
 
-## Task 1: Review Best Model Predictions
+4. Select **Details** and wait till the run status becomes **Completed**.
 
-1. From the table view, select the iteration with the best **spearman_correlation** score. Note that the spearman_correlation measures the monotonic relationships between the predicted value and actual value. In this case, the model with spearman_correlation score closest to 1 is the best model.
+    ![Run Details tab showing run status.](images/19.png 'Run Details')
 
-   <img src="./images/010_ReviewRunDetails_2.png" width="70%" height="70%" title="Review run details - table view">
+# Exercise 4: Review Recommended Model's Performance
+
+## Task 1: Review Recommended Model Predictions
+
+1. From the `Details` tab review the `Recommended model` and its corresponding Spearman correlation score. Next, select **View model details**
+
+    ![Run Details tab showing recommended model.](images/20.png 'Recommended Model')
   
-2. Review **Predicted Taxi Fare vs True Taxi Fare** for your model
+2. Review the various **Run Metrics** to evaluate the model performance. Next, select **Visualizations** to review Predicted Taxi Fare vs True Taxi Fare for your model.
 
-   <img src="./images/011_ReviewPredictions.png" width="70%" height="70%" title="Review Best Model Predictions">
+    ![Model Details tab showing model performance metrics.](images/21.png 'Model details')
 
-## Task 2: Review Best Model Metrics
+3. Review the model predictions. Next, select **Explanations** to review Predicted Taxi Fare vs True Taxi Fare for your model.
 
-1. Scroll down to review various performance metrics for your model
+    ![Graph of model predicted value versus true value.](images/22.png 'Model Predictions')
 
-   <img src="./images/012_ReviewMetrics.png" width="70%" height="70%" title="Review Best Model Metrics">
+## Task 2: Review Recommended Model Explanations
 
-# Exercise 7: Deploy Best Model
+1. Review the model features that are most influential in making predictions. The graph shows that the `trip distance`, as expected, is the most influential feature followed by weather metrics like `temperature` and `precipitation depth`. Next, select **Model details** to return back to the `Model details` tab.
 
-1. Return to `Run Details` screen
-2. Select **Deploy Best Model** as shown
+    ![Bar graph of top 8 important features.](images/23.png 'Model Explanations')
 
-   <img src="./images/014_DeployBestModel.png" width="70%" height="70%" title="Deploy Best Model">
+# Exercise 5: Deploy Recommended Model
 
-3. Provide the `Deployment name`, and `Deployment description`, and then select **Deploy** as shown:
+## Task 1: Deploy Model
 
-   - Deployment name: `nyc-taxi-predict`
-   - Deployment description: `Predict NYC Taxi Fares!`
+1. Select **Deploy model**
 
-   <img src="./images/0141_DeployBestModel.png" width="70%" height="70%" title="Deploy Best Model">
+    ![Select Deploy model.](images/24.png 'Deploy model')
 
-4. The model deployment, will register the model, create the deployment image, and deploy it as a scoring webservice in an Azure Container Instance (ACI). The entire deployment process can take up to 20 minutes. 
+2. In the `Deploy a model` dialog, provide the following information, and then select Select **Deploy**:
 
-5. To view the deployed model, from the Azure Machine Learning workspace select **Deployments**.
+    - Name: `nyc-taxi-predict`
+    - Description: `Predict NYC Taxi Fares!`
+    - Compute type: `ACI`
 
-   <img src="./images/0142_DeployBestModel.png" width="70%" height="70%" title="Deployed Models">
+    ![Provide information in the Deploy a model dialog and then select Deploy.](images/25.png 'Deploy a Model')
 
-# Exercise 8: Challenge Experiment
+3. Wait for the model to be deployed. It can take couple of minutes for the model deployment to finish.
 
-In the current experiment, the pipeline of `MaxAbsScaler, RandomForest` gave us the best performing model with the spearman correlation score of: **0.934**. Can you expand the number of iterations for the Automated Machine Learning experiment to see if we can find a better performing model? Note that `Number of iterations` parameter is defined as follows: *In each iteration, a new machine learning model is trained with your data. This is the primary value that affects total run time.*
+## Task 2: View Endpoint Consumption Information
 
-# Exercise 9: Clean-up
+1. To view the deployed model, select the **Endpoints** section in your Azure Portal Workspace.
 
-1. Navigate to the `Compute` section in your Azure Portal Workspace and delete your compute target: `auto-ml-compute`
+    ![Select Endpoints section in your Azure Portal Workspace.](images/26.png 'Model Details')
 
-   <img src="./images/013_DeleteCompute.png" width="70%" height="70%">
+2. Select the deployed model: **nyc-taxi-predict**
+
+    ![Endpoints list showing the deployed model, nyc-taxi-predict.](images/27.png 'Endpoints')
+
+    *Note: you have to select the text of the model name to open the model deployment details page*
+
+3. Select **Consume** tab to view the basic consumption information:
+
+    - REST endpoint URL
+    - Primary KEY
+    - Secondary KEY
+
+    ![Consume tab showing basic consumption information for the deployed endpoint.](images/28.png 'Consume')
+
+# Exercise 6: Challenge Experiment
+
+In the current experiment, the pipeline of MaxAbsScaler, RandomForest gave us the best performing model with the spearman correlation score of: 0.933. Can you expand the number of iterations for the Automated Machine Learning experiment to see if we can find a better performing model? Note that in each iteration, a new machine learning model is trained with your data.
+
+# Exercise 7: Clean-up
+
+1. Select **Endpoints** section in your Azure Portal Workspace and then select **nyc-taxi-predict, Delete**
+
+    ![Select the deployed endpoint, nyc-taxi-predict, and then select delete.](images/29.png 'Delete Endpoint')
+
+2. Select **Compute, Training Cluster** section in your Azure Portal Workspace and then select **auto-ml-compute, Delete**
+
+    ![Select the training cluster, auto-ml-compute, and then select delete.](images/30.png 'Delete Training Cluster')
