@@ -181,7 +181,7 @@ Compute-VM
 
     ![Model Details tab showing model performance metrics.](images/21.png 'Model details')
 
-3. Review the model predictions. Next, select **Explanations** to review Predicted Taxi Fare vs True Taxi Fare for your model.
+3. Review the model predictions. Next, select **Explanations**.
 
     ![Graph of model predicted value versus true value.](images/22.png 'Model Predictions')
 
