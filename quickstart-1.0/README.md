@@ -207,19 +207,19 @@ Compute-VM
 
     ![Provide information in the Deploy a model dialog and then select Deploy.](images/25.png 'Deploy a Model')
 
-3. Wait for the model to be deployed. It can take couple of minutes for the model deployment to finish.
+3. Wait for the service to be deployed. It can take couple of minutes for the deployment to finish.
 
 ## Task 2: View Endpoint Consumption Information
 
-1. To view the deployed model, select the **Endpoints** section in your Azure Portal Workspace.
+1. To view the deployed service, select the **Endpoints** section in your Azure Portal Workspace.
 
-    ![Select Endpoints section in your Azure Portal Workspace.](images/26.png 'Model Details')
+    ![Select Endpoints section in your Azure Portal Workspace.](images/26.png 'Service Details')
 
-2. Select the deployed model: **nyc-taxi-predict**
+2. Select the deployed service: **nyc-taxi-predict**
 
-    ![Endpoints list showing the deployed model, nyc-taxi-predict.](images/27.png 'Endpoints')
+    ![Endpoints list showing the deployed service, nyc-taxi-predict.](images/27.png 'Endpoints')
 
-    *Note: you have to select the text of the model name to open the model deployment details page*
+    *Note: you have to select the text of the service name to open the deployment details page*
 
 3. Select **Consume** tab to view the basic consumption information:
 
