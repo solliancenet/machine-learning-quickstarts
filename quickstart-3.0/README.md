@@ -330,7 +330,7 @@ Is there another regression model that can give us an improved evaluation score 
 
     ![Image shows how to delete the training cluster, qs-compute.](images/34.png 'Training Clusters')
 
-## Task 2: Delete Inference Cluster
+## Task 3: Delete Inference Cluster
 
 1. Select the **Compute, Inference Clusters** section in your Azure Portal Workspace.
 
