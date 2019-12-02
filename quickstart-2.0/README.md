@@ -59,8 +59,6 @@ At a high level, here are the setup tasks you will need to perform to prepare yo
 
 2. Import the Quickstart Notebooks
 
-3. Update your Notebook Environment 
-
 ## Task 1: Create a Notebook VM
 
 1. Log into [Azure Portal](https://portal.azure.com/) and open the machine learning workspace: quick-starts-ws-XXXXX or quick-starts-ws
