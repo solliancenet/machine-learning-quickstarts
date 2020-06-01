@@ -51,17 +51,17 @@ Compute-VM
 
 - If you are using your own Azure subscription. Create an Azure Machine Learning service workspace, **enterprise edition**, named: `quick-starts-ws`. See [Create an Azure Machine Learning Service Workspace](https://docs.microsoft.com/en-us/azure/machine-learning/service/setup-create-workspace) for details on how to create the workspace.
 
-- Download the training data file [nyc-taxi-sample-data.csv](https://quickstartsws9073123377.blob.core.windows.net/azureml-blobstore-0d1c4218-a5f9-418b-bf55-902b65277b85/quickstarts/nyc-taxi-data/nyc-taxi-sample-data.csv) on your local machine.
-
 # Exercise 2: Setup New Automated Machine Learning Experiment
 
 ## Task 1: Create New Automated Machine Learning Experiment
 
 1. In Azure Portal, open the machine learning workspace: `quick-starts-ws-XXXXX` or `quick-starts-ws`
 
-2. Select **Launch the new Azure Machine Learning studio**
+2. Select **Try the new Azure Machine Learning studio**
 
     ![Select Launch the new Azure Machine Learning studio.](images/01.png 'Launch the new Azure Machine Learning studio')
+
+    >> Note that for the first time you will be asked to select the subscription and machine learning workspace from a drop down list before opening the new studio interface.
 
 3. From the studio, select **Create new, Automated ML run**
 
@@ -71,15 +71,17 @@ Compute-VM
 
 ## Task 2: Upload and Review Training Data
 
-1. From the `Select dataset` step, select **Create dataset, From local files**
+1. From the `Select dataset` step, select **Create dataset, From web files**
 
     ![Open select dataset from local files.](images/03.png 'Select dataset')
 
-2. Select **Browse** to locate the file `nyc-taxi-sample-data.csv` on your local machine, and then select **Next**
+2. Provide Name: `nyc-taxi-sample-data`. In the Web URL field provide the following URL for the training data file and then select **Next**
 
-    ![Upload nyc-taxi-sample-data.csv from your local machine.](images/04.png 'Upload dataset')
+    `https://introtomlsampledata.blob.core.windows.net/data/nyc-taxi/nyc-taxi-sample-data.csv`
 
-3. Preview dataset. Scroll to right to observe the target column: `totalAmount`. After you are done reviewing the data, select **Next**
+    ![Upload nyc-taxi-sample-data.csv from a web URL.](images/04.png 'Upload dataset')
+
+3. On the Settings and preview panel, set the column headers drop down to `All files have same headers`. Scroll to right to observe the target column: `totalAmount`. After you are done reviewing the data, select **Next**
 
     ![Scroll right to review dataset.](images/05.png 'Review dataset')
 
@@ -105,10 +107,11 @@ Compute-VM
 
     ![Configure the run by providing the experiment name, selecting the target column and open the create new compute dialog.](images/09.png 'Configure Run')
 
-4. In the `Create new compute` dialog provide the following information and then select **Create**
+4. In the `New compute cluster` dialog provide the following information and then select **Create**
 
     - Compute name: `auto-ml-compute`
-    - Select Virtual Machine size: `STANDARD_DS3_V2 --- 4 vCPUs, 14 GB memory, 28 GB storage`
+    - Virtual machine type: `CPU (Central Processing Unit)`
+    - Virtual Machine size: `Standard_DS3_v2`
     - Minimum number of nodes: 1
     - Maximum number of nodes: 1
 
@@ -130,20 +133,17 @@ Compute-VM
 
     ![Open the additional configurations dialog by selecting the view additional configuration settings link.](images/13.png 'Open Additional configurations dialog')
 
-3. Select primary metric: **Spearman correlation**, and then select the **Exit criteria** section.
+3. In the `Additional configurations` dialog, configure the following and then select **Save**
 
-    ![Select primary metric as Spearman correlation and then expand the exit criteria section.](images/14.png 'Additional configurations dialog')
-
-    *Note that the `Spearman correlation` measures the monotonic relationships between the predicted value and actual value. In this case, the model with spearman_correlation score closest to 1 is the best model.*
-
-4. In the `Exit criteria` section provide the following information and then select **Save**
-
+    - Primary metric: `Spearman correlation`
     - Training job time (hours): `1`
     - Metric score threshold: `0.933`
 
-    ![Provide exit criteria and then select save.](images/15.png 'Exit criteria')
+    ![Select primary metric as Spearman correlation and setup the exit criteria.](images/14.png 'Additional configurations dialog')
 
-    *Note that we are setting a metric score threshold to limit the training time. In practice, for initial experiments, you will typically only set the training job time to allow AutoML to discover the best algorithm to use for your specific data.*
+    > Note that the `Spearman correlation` measures the monotonic relationships between the predicted value and actual value. In this case, the model with spearman_correlation score closest to 1 is the best model.
+
+    > Note that we are setting a metric score threshold to limit the training time. In practice, for initial experiments, you will typically only set the training job time to allow AutoML to discover the best algorithm to use for your specific data.
 
 # Exercise 3: Start and Monitor Experiment
 
@@ -157,7 +157,7 @@ Compute-VM
 
 1. The experiment will run for about *5-10 min*
 
-2. In the **Details** tab, observe the **run status** of the job. 
+2. In the **Details** tab, observe the **run status** of the job.
 
     ![Run Details tab showing run status.](images/17.png 'Run Details')
   
@@ -165,33 +165,45 @@ Compute-VM
 
     ![Models tab showing model performance metric.](images/18.png 'Models')
 
+    > Note that we have set a metric score threshold to limit the training time. As a result you might see only one algorithm in your models list.
+
 4. Select **Details** and wait till the run status becomes **Completed**.
 
     ![Run Details tab showing run status.](images/19.png 'Run Details')
 
-# Exercise 4: Review Recommended Model's Performance
+# Exercise 4: Review Best Model's Performance
 
-## Task 1: Review Recommended Model Predictions
+## Task 1: Review Best Model Performance Metrics
 
-1. From the `Details` tab review the `Recommended model` and its corresponding Spearman correlation score. Next, select **View model details**
+1. The `Details` tab shows the `Best model summary`. Next, select **Algorithm name** to review the model details.
 
-    ![Run Details tab showing recommended model.](images/20.png 'Recommended Model')
+    ![Run Details tab showing best model.](images/20.png 'Best Model')
   
-2. Review the various **Run Metrics** to evaluate the model performance. Next, select **Visualizations** to review Predicted Taxi Fare vs True Taxi Fare for your model.
+2. From the `Model details` tab, to view the various metrics to evaluate the best model performance, select **View all other metrics**.
 
-    ![Model Details tab showing model performance metrics.](images/21.png 'Model details')
+    ![Model Details tab showing model summary.](images/21.png 'Model Details')
 
-3. Review the model predictions. Next, select **Explanations**.
+3. Review the model performance metrics and then select **Close**.
+
+    ![Model performance metrics.](images/21_2.png 'Run Metrics')
+
+## Task 2: Review Best Model Predictions
+
+1. Next, select **Visualizations** to review Predicted Taxi Fare vs True Taxi Fare for your model.
+
+    ![Model Details tab showing model summary.](images/21_3.png 'Model Details')
+
+2. Review the model predictions. Next, select **Explanations**.
 
     ![Graph of model predicted value versus true value.](images/22.png 'Model Predictions')
 
-## Task 2: Review Recommended Model Explanations
+## Task 3: Review Best Model Explanations
 
-1. Review the model features that are most influential in making predictions. The graph shows that the `trip distance`, as expected, is the most influential feature followed by weather metrics like `temperature` and `precipitation depth`. Next, select **Model details** to return back to the `Model details` tab.
+1. Review the model features that are most influential in making predictions. The graph shows that the `trip distance`, as expected, is the most influential feature followed by features like `hour_of_day` and `day_of_week`. Next, select **Model details** to return back to the `Model details` tab.
 
     ![Bar graph of top 8 important features.](images/23.png 'Model Explanations')
 
-# Exercise 5: Deploy Recommended Model
+# Exercise 5: Deploy Best Model
 
 ## Task 1: Deploy Model
 
@@ -199,7 +211,7 @@ Compute-VM
 
     ![Select Deploy model.](images/24.png 'Deploy model')
 
-2. In the `Deploy a model` dialog, provide the following information, and then select Select **Deploy**:
+2. In the `Deploy a model` dialog, provide the following information, and then select select **Deploy**:
 
     - Name: `nyc-taxi-predict`
     - Description: `Predict NYC Taxi Fares!`
@@ -224,8 +236,6 @@ Compute-VM
 3. Select **Consume** tab to view the basic consumption information:
 
     - REST endpoint URL
-    - Primary KEY
-    - Secondary KEY
 
     ![Consume tab showing basic consumption information for the deployed endpoint.](images/28.png 'Consume')
 
@@ -239,6 +249,6 @@ In the current experiment, the pipeline of MaxAbsScaler, RandomForest gave us th
 
     ![Select the deployed endpoint, nyc-taxi-predict, and then select delete.](images/29.png 'Delete Endpoint')
 
-2. Select **Compute, Training Cluster** section in your Azure Portal Workspace and then select **auto-ml-compute, Delete**
+2. Select **Compute, Compute clusters** section in your Azure Portal Workspace and then select **auto-ml-compute, Delete**
 
     ![Select the training cluster, auto-ml-compute, and then select delete.](images/30.png 'Delete Training Cluster')
