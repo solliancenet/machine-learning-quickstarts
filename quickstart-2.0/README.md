@@ -29,7 +29,7 @@ The labs have the following requirements:
 - Azure subscription. You will need a valid and active Azure account to complete this Azure lab. If you do not have one, you can sign up for a [free trial](https://azure.microsoft.com/en-us/free/).
 
 ## Azure Quotas Required
-The quickstarts depend on the capability to utilize a certain quantity of Azure resources, for which your Azure subscription will need to have sufficient quota available. 
+The quickstarts depend on the capability to utilize a certain quantity of Azure resources, for which your Azure subscription will need to have sufficient quota available.
 
 The following are the specific quotas required, if your subscription does not meet the quota requirements in the region in which you will perform the quickstarts, you will need to request a quota increase thru Azure support:
 
@@ -51,31 +51,39 @@ Compute-VM
 
 - If you are using your own Azure subscription. Create an Azure Machine Learning service workspace, **basic edition**, named: `quick-starts-ws`. See [Create an Azure Machine Learning Service Workspace](https://docs.microsoft.com/en-us/azure/machine-learning/service/setup-create-workspace) for details on how to create the workspace.
 
-# Exercise 2: Azure Notebook VMs Setup
+# Exercise 2: Azure Compute Instance Setup
 
-At a high level, here are the setup tasks you will need to perform to prepare your Azure Notebook VM Environment (the detailed instructions follow):
+At a high level, here are the setup tasks you will need to perform to prepare your Azure Compute Instance Environment (the detailed instructions follow):
 
-1. Create a Notebook VM in your Azure subscription
+1. Create a Compute Instance in your Azure subscription
 
 2. Import the Quickstart Notebooks
 
-## Task 1: Create a Notebook VM
+## Task 1: Create a Compute Instance
 
 1. Log into [Azure Portal](https://portal.azure.com/) and open the machine learning workspace: quick-starts-ws-XXXXX or quick-starts-ws
 
-2. Select **Compute, Notebook VMs** in the left navigation and then select **+ New**
+2. Select **Compute, Compute instances** in the left navigation and then select **+ New**
 
    ![Select Create New Notebook VM in Azure Portal](images/01.png)
 
-3. Provide Name: `quick-starts-nvm` and VM type: `STANDARD_DS3_V2 --- 4 vCPUs, 14 GB memory, 28 GB storage` and then select **Create**
+3. Provide the following information and then select **Create**
 
-   ![Create New Notebook VM](images/02.png)
+    a. Compute name: `quick-starts-nvm`
+
+    b. Virtual machine type: `CPU (Central Processing Unit)`
+
+    c. VM machine size: `Standard_DS3_V2`
+
+   ![Create New Compute Instance](images/02.png)
+
+   > Note: If the Compute Instance names should be unique within an Azure Region notification appears, choose a different name that is unique to your environment.
   
-4. Wait for the VM to be ready, it will take around 5 minutes.
+4. Wait for the Compute Instance to be ready, it will take around 5 minutes.
 
 ## Task 2: Import the Quickstart Notebooks
 
-1. Select the Notebook VM: **quick-starts-nvm** and then select **Jupyter** open icon, to open Jupyter Notebooks interface.
+1. Select the Compute Instance: **quick-starts-nvm** and then select **Jupyter** open icon, to open Jupyter Notebooks interface.
 
    ![Open Jupyter Notebooks Interface](images/03.png)
 
