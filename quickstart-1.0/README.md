@@ -61,7 +61,7 @@ Compute-VM
 
     ![Select Launch the new Azure Machine Learning studio.](images/01.png 'Launch the new Azure Machine Learning studio')
 
-    >> Note that for the first time you will be asked to select the subscription and machine learning workspace from a drop down list before opening the new studio interface.
+    > Note that for the first time you will be asked to select the subscription and machine learning workspace from a drop down list before opening the new studio interface.
 
 3. From the studio, select **Create new, Automated ML run**
 
@@ -81,7 +81,7 @@ Compute-VM
 
     ![Upload nyc-taxi-sample-data.csv from a web URL.](images/04.png 'Upload dataset')
 
-3. On the Settings and preview panel, set the column headers drop down to `All files have same headers`. Scroll to right to observe the target column: `totalAmount`. After you are done reviewing the data, select **Next**
+3. On the `Settings and preview panel`, set the column headers drop down to `All files have same headers`. Scroll to right to observe the target column: `totalAmount`. After you are done reviewing the data, select **Next**
 
     ![Scroll right to review dataset.](images/05.png 'Review dataset')
 

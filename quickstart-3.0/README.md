@@ -42,27 +42,33 @@ Create a compute target in the workspace `quick-starts-ws` to run your Azure Mac
 
 1. In Azure Portal, open the machine learning workspace: `quick-starts-ws`
 
-2. Select **Launch the new Azure Machine Learning studio**
+2. Select **Try the new Azure Machine Learning studio**
 
     ![Select Launch the new Azure Machine Learning studio.](images/01.png 'Launch the new Azure Machine Learning studio')
 
-3. From the studio, select **Compute, Training Clusters, + New**. This will open the `New Training Cluster` dialog on the right. In the dialog, enter the following information and then select **Create**:
+    > Note that for the first time you will be asked to select the subscription and machine learning workspace from a drop down list before opening the new studio interface.
+
+3. From the studio, select **Compute, Compute clusters, + New**. This will open the `New compute cluster` dialog on the right. In the dialog, enter the following information and then select **Create**:
 
    a. Compute name: `qs-compute`
 
-   b. Virtual machine size: `Standard_D2_v2`
+   b. Virtual machine type: `CPU (Central Processing Unit)`
 
-   c. Minimum number of nodes: `1`
+   c. Virtual machine size: `Standard_DS3_v2`
 
-   d. Maximum number of nodes: `1`
+   d. Minimum number of nodes: `1`
+
+   e. Maximum number of nodes: `1`
 
     ![Image highlights the steps to open the create new training cluster dialog, and shows the information to provide for the different fields in the dialog.](images/02.png 'New Training Cluster')
+
+    > Note: Continue working on the lab as you do not need the compute service until Exercise 3.
 
 ## Task 2: Create Kubernetes Service Compute
 
 Next, we will create a Kubernetes Service Compute to publish the trained model as web service.
 
-1. From the studio, select **Compute, Inference Clusters, + New**. This will open the `New Inference Cluster` dialog on the right. In the dialog, enter the following information and then select **Create**:
+1. From the studio, select **Compute, Inference clusters, + New**. This will open the `New inference cluster` dialog on the right. In the dialog, enter the following information and then select **Create**:
 
    a. Compute name: `nyc-taxi-service`
 
@@ -70,9 +76,13 @@ Next, we will create a Kubernetes Service Compute to publish the trained model a
 
    c. Virtual machine size: `Standard_D3_v2`
 
-   d. Number of nodes: `3`
+   d. Cluster purpose: `Production`
+
+   e. Number of nodes: `3`
 
     ![Image highlights the steps to open the create new inference cluster dialog, and shows the information to provide for the different fields in the dialog.](images/03.png 'New Inference Cluster')
+
+    > Note: Continue working on the lab as you do not need the Kubernetes service until Exercise 7.
 
 ## Task 3: Download the Training Data File
 
@@ -82,17 +92,23 @@ Next, we will create a Kubernetes Service Compute to publish the trained model a
 
 ## Task 1: Upload Dataset
 
-1. From the studio, select **Datasets, + Create dataset, From local files**. This will open the `Create dataset from local files` dialog on the right.
+1. From the studio, select **Datasets, + Create dataset, From local files**. This will open the `Create dataset from local files` dialog on the right. Provide an unique name to the dataset and then select **Next**
 
    ![Image highlights the steps to open the create dataset from local files dialog.](images/04.png 'Create dataset from local files')
 
-2. Select **Browse** to locate the file `nyc-taxi-sample-data.csv` on your local machine, and then select **Next**
+2. In the `Datastore and file section` dialog, perform the following steps:
+
+    1. Select **Previously created datastore**
+    2. Select **workspaceblobstore (Default)**
+    3. Select **Browse** to locate and select the file `nyc-taxi-sample-data.csv` on your local machine
+    4. Select **Select datastore**
+    5. Select **Next**
 
     ![Upload nyc-taxi-sample-data.csv from your local machine.](images/05.png 'Upload dataset')
 
 ## Task 2: Preview Dataset
 
-1. Scroll to right to observe the target column: `totalAmount`. After you are done reviewing the data, select **Next**
+1. On the `Settings and preview` panel, set the column headers drop down to `All files have same headers`. Scroll to right to observe the target column: `totalAmount`. After you are done reviewing the data, select **Next**
 
     ![Scroll right to review dataset.](images/06.png 'Review dataset')
 
@@ -146,7 +162,7 @@ Next, we will create a Kubernetes Service Compute to publish the trained model a
 
     ![Image shows the steps to add and configure the Split Data module.](images/13.png 'Split Data Module')
 
-*Note that you can run the pipeline at any point to peek at the outputs and activities. Running pipeline also generates metadata that is available for downstream activities such selecting column names from a list in selection dialogs.*
+    > Note that you can run the pipeline at any point to peek at the outputs and activities. Running pipeline also generates metadata that is available for downstream activities such selecting column names from a list in selection dialogs.
 
 ## Task 5: Initialize Regression Model
 
@@ -196,7 +212,7 @@ Next, we will create a Kubernetes Service Compute to publish the trained model a
 
     ![Image shows the steps to add and configure the Score Model module.](images/17.png 'Score Model')
 
-*Note that `Split Data` module will feed data for both model training and model scoring. The first output (0.7 fraction) will connect with the `Train Model` module and the second output (0.3 fraction) will connect with the `Score Model` module.*
+    > Note that `Split Data` module will feed data for both model training and model scoring. The first output (0.7 fraction) will connect with the `Train Model` module and the second output (0.3 fraction) will connect with the `Score Model` module.
 
 ## Task 8: Setup Evaluate Model Module
 
@@ -214,21 +230,21 @@ Next, we will create a Kubernetes Service Compute to publish the trained model a
 
 ## Task 1: Create Experiment and Run Pipeline
 
-1. Select **Run** to open the `Setup pipeline run` editor.
+1. Select **Submit** to open the `Setup pipeline run` editor.
 
     ![Image shows where to select the run button to open the setup pipeline run editor.](images/19.png 'Run Pipeline')
 
-2. In the `Setup pipeline run` editor, select **+New experiment**, provide `Experiment Name:` **designer-run**, and then select **Run**.
+2. In the `Setup pipeline run` editor, select **Create new**, provide `New experiment name:` **designer-run**, and then select **Submit**.
 
     ![Image shows how to provide the experiment name in the setup pipeline run editor and start the pipeline run.](images/20.png 'Run Pipeline')
 
-3. Wait for pipeline run to complete. It will take around **10 minutes** to complete the run.
+3. Wait for pipeline run to complete. It will take around **5-10 minutes** to complete the run.
 
 # Exercise 5: Visualize Training Results
 
 ## Task 1: Visualize the Model Predictions
 
-1. Select **Score Model, Outputs, Visualize** to open the `Score Model result visualization` dialog.
+1. Select **Score Model, Outputs + logs, Visualize** to open the `Score Model result visualization` dialog.
 
     ![Image shows how to open the score model result visualization dialog.](images/21.png 'Score Model Results')
 
@@ -238,7 +254,7 @@ Next, we will create a Kubernetes Service Compute to publish the trained model a
 
 ## Task 2: Visualize the Evaluation Results
 
-1. Select **Evaluate Model, Outputs, Visualize** to open the `Evaluate Model result visualization` dialog.
+1. Select **Evaluate Model, Outputs + logs, Visualize** to open the `Evaluate Model result visualization` dialog.
 
     ![Image shows how to open the evaluate model result visualization dialog.](images/23.png 'Evaluate Model Results')
 
@@ -256,15 +272,15 @@ Next, we will create a Kubernetes Service Compute to publish the trained model a
 
 ## Task 2: Run Pipeline
 
-1. Select **Run** to open the `Set up pipeline run` editor.
+1. Select **Submit** to open the `Set up pipeline run` editor.
 
     ![Select run to open the set up pipeline run editor.](images/26.png 'Real-time Inference Pipeline')
 
-2. Select **Experiment** from the list: **designer-run**, and then select **Run**.
+2. Select **Existing experiment** from the list: **designer-run**, and then select **Submit**.
 
     ![Image shows how to select the experiment name in the set up pipeline run editor and start the pipeline run.](images/27.png 'Setup Pipeline Run')
 
-3. Wait for pipeline run to complete. It will take around **7 minutes** to complete the run.
+3. Wait for pipeline run to complete. It will take around **3-5 minutes** to complete the run.
 
 # Exercise 7: Deploy Web Service on Kubernetes Service Compute
 
@@ -276,19 +292,17 @@ Next, we will create a Kubernetes Service Compute to publish the trained model a
 
 2. In the `Set up real-time endpoint` editor, provide the following information and then select **Deploy**.
 
-    1. Real-time endpoint name: **nyc-taxi-fare-predictor**
+    1. Select **Deploy new real-time endpoint**
 
-    2. Select an existing compute target name: **nyc-taxi-service**
+    2. Real-time endpoint name: **nyc-taxi-fare-predictor**
+
+    3. Select an existing compute target name: **nyc-taxi-service**
 
     ![Image shows the information provided in the set up real-time endpoint editor.](images/29.png 'Deploy Web Service')
 
-*Note that **nyc-taxi-service** is the Kubernetes Service Compute created in the prerequisites section*
+    > Note that **nyc-taxi-service** is the Kubernetes Service Compute created in the prerequisites section.
 
-3. Wait for the deployment to complete. The status of the deployment can be observed above the `Pipeline Authoring Editor`.
-
-    ![Image highlights the region where you see the status of the web service deployment.](images/30.png 'Successful Deployment')
-
-## Task 2: Review Deployed Web Service
+## Task 2: Review Deployment State of the Web Service
 
 1. To view the deployed web service, select the **Endpoints** section in your Azure Portal Workspace.
 
@@ -296,7 +310,13 @@ Next, we will create a Kubernetes Service Compute to publish the trained model a
 
     ![Image highlights the deployed web service, nyc-taxi-fare-predictor.](images/31.png 'Endpoints')
 
-*Note: you have to select the text of the service name to open the deployment details page*
+    > Note: You have to select the text of the service name to open the deployment details page.
+
+3. The deployment is complete when the `Deployment state` is **Healthy**. Wait for the deployment to complete before proceeding.
+
+    ![Image shows the details of the deployed web service, nyc-taxi-fare-predictor.](images/31_2.png 'Service Details')
+
+    > Note: You may have to periodically refresh the page to update the deployment status.
 
 ## Task 3: Review how to Consume the Deployed Web Service
 
@@ -322,9 +342,9 @@ Is there another regression model that can give us an improved evaluation score 
 
     ![Image shows how to delete the web service, nyc-taxi-fare-predictor.](images/33.png 'Endpoints')
 
-## Task 2: Delete Training Cluster
+## Task 2: Delete Compute Cluster
 
-1. Select the **Compute, Training Clusters** section in your Azure Portal Workspace.
+1. Select the **Compute, Compute clusters** section in your Azure Portal Workspace.
 
 2. Select **qs-compute, Delete** to delete the training cluster.
 
@@ -332,7 +352,7 @@ Is there another regression model that can give us an improved evaluation score 
 
 ## Task 3: Delete Inference Cluster
 
-1. Select the **Compute, Inference Clusters** section in your Azure Portal Workspace.
+1. Select the **Compute, Inference clusters** section in your Azure Portal Workspace.
 
 2. Select **nyc-taxi-service, Delete** to delete the inference cluster.
 
